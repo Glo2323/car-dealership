@@ -57,7 +57,6 @@ public class DealershipFileManager {
 
 
 
-
         }
         catch (Exception e){
 
@@ -79,7 +78,7 @@ public class DealershipFileManager {
         //?Creating a Scanner
        Scanner input = new Scanner(System.in);
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile))){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true))) {
 
             //*Asking question to save the vehicle info
 

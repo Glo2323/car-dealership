@@ -1,8 +1,11 @@
 package com.pluralsight;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.math.BigDecimal;
+import java.util.Scanner;
 
 public class DealershipFileManager {
 
@@ -11,7 +14,7 @@ public class DealershipFileManager {
     public Dealership getDealership(){
 
         //?Creating the dealership variable
-        Dealership dealership = null;
+        Dealership dealerShip = null;
 
         //?Creating my try to catch any errors
         //*Creating a reader to read the files
@@ -28,7 +31,7 @@ public class DealershipFileManager {
                 String address = dealerShipParts[1];
                 String phone = dealerShipParts[2];
 
-                dealership = new Dealership(name, address, phone);
+                dealerShip = new Dealership(name, address, phone);
             }
 
             String vehicleLine;
@@ -48,7 +51,7 @@ public class DealershipFileManager {
                 //*Creating the vehicle with the  parts
                 Vehicle newVehicle = new Vehicle(vin , year,make, model, type, color, odometer, price);
                 //*adding the vehicle to the inventory
-                dealership.addVehicle(newVehicle);
+                dealerShip.addVehicle(newVehicle);
 
             }
 
@@ -67,7 +70,75 @@ public class DealershipFileManager {
 
 
 
-    return dealership;
+    return dealerShip;
 
+    }
+
+    public Dealership saveDealership(Dealership dealerShip){
+
+        //?Creating a Scanner
+       Scanner input = new Scanner(System.in);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile))){
+
+            //*Asking question to save the vehicle info
+
+            //*Asking for a vin
+            System.out.println("What's your Vehicle Vin:");
+            //*Catching users answer
+            int vin = input.nextInt();
+
+            //*Asking for the year
+            System.out.println("What's your Vehicle Year:");
+            //*Catching the users answer
+            int year = input.nextInt();
+
+            //*Asking for the make
+            System.out.println("What's your Vehicle Make:");
+            //*Catching the users answer
+            String make = input.next();
+
+            //*asking for the model
+            System.out.println("What's your Vehicle Model:");
+            //*Catching the  users answer
+            String model = input.next();
+
+            //*Asking the type of vehicle
+            System.out.println("What's your Vehicle Type:");
+            //*Catching the users answer
+            String type = input.next();
+
+            //*Asking for the color
+            System.out.println("What's your Vehicle Color:");
+            //*Catching the  users answer
+            String color = input.next();
+
+            //*Asking for the odometer
+            System.out.println("What's your Vehicle Odometer:");
+            //*Catching the users answer
+            int odometer = input.nextInt();
+
+            //*Asking for the price
+            System.out.println("What's your Vehicle Price:");
+            //*Catching the answer
+            BigDecimal price = new BigDecimal(input.next());
+
+            //?Formatting the info to display on the csv
+            String formattedLine = String.format("%d|%d|%s|%s|%s|%s|%d|%f", vin, year, make, model, type, color, odometer, price);
+
+            //*Writing the info onto the csv in the formatted way
+            writer.write(formattedLine);
+
+
+            //?Closing the writer
+            writer.close();
+
+
+        } catch (Exception e) {
+
+            System.out.println("Error " + e.getMessage());
+        }
+
+        return dealerShip;
     }
 }

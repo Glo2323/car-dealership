@@ -32,6 +32,10 @@ public class Dealership {
     public ArrayList<Vehicle> getVehiclesByPrice(BigDecimal min, BigDecimal max) {
         ArrayList<Vehicle> vehicles = new ArrayList<>();
         for (Vehicle vehicle : this.inventory) {
+            if (vehicle.getPrice().compareTo(min) >= 0 && vehicle.getPrice().compareTo(max) <= 0) {
+                System.out.printf("%d|%d|%s|%s|%s|%s|%d|%f", vehicle.getVin(),vehicle.getYear(),vehicle.getMake(),vehicle.getModel()
+                        ,vehicle.getVehicleType(),vehicle.getColor(), vehicle.getOdometer(),vehicle.getPrice() );
+            }
 
         }
         return vehicles;

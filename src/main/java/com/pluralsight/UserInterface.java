@@ -41,6 +41,8 @@ public class UserInterface {
                 case 5 -> processGetByMileageRequest();
                 case 6 -> processGetByTypeRequest();
                 case 7 -> processGetAllVehiclesRequest();
+                case 8 -> processAddVehicleRequest();
+                case 9 -> processRemoveVehicleRequest();
                 case 99 -> menuApp = false;
 
             }
@@ -162,10 +164,73 @@ public class UserInterface {
 
         displayVehicles(dealership.getVehiclesByVehicleType(vehicleType));
     }
-
+    //!Creating a method for the user to search by all
     public void processGetAllVehiclesRequest(){
 
         displayVehicles(dealership.getAllVehicles());
+
+    }
+
+    //!Creating a method for the user to add a vehicle to the inventory
+    public void processAddVehicleRequest(){
+        //?Calling the method that asks the questions a saves them
+        DealershipFileManager dealershipFileManager = new DealershipFileManager();
+
+       dealershipFileManager.saveDealership(dealership);
+    }
+
+    //!Creating a method for removing a vehicle for the inventory
+    public void processRemoveVehicleRequest(){
+        //*Asking question to save the vehicle info
+        Scanner input = new Scanner(System.in);
+
+        //*Asking for a vin
+        System.out.println("What's your Vehicle Vin:");
+        //*Catching users answer
+        int vin = input.nextInt();
+
+        //*Asking for the year
+        System.out.println("What's your Vehicle Year:");
+        //*Catching the users answer
+        int year = input.nextInt();
+
+        //*Asking for the make
+        System.out.println("What's your Vehicle Make:");
+        //*Catching the users answer
+        String make = input.next();
+
+        //*asking for the model
+        System.out.println("What's your Vehicle Model:");
+        //*Catching the  users answer
+        String model = input.next();
+
+        //*Asking the type of vehicle
+        System.out.println("What's your Vehicle Type:");
+        //*Catching the users answer
+        String type = input.next();
+
+        //*Asking for the color
+        System.out.println("What's your Vehicle Color:");
+        //*Catching the  users answer
+        String color = input.next();
+
+        //*Asking for the odometer
+        System.out.println("What's your Vehicle Odometer:");
+        //*Catching the users answer
+        int odometer = input.nextInt();
+
+        //*Asking for the price
+        System.out.println("What's your Vehicle Price:");
+        //*Catching the answer
+        BigDecimal price = new BigDecimal(input.next());
+
+        //*Creating my vehicle
+        Vehicle removeCar = new Vehicle(vin, year, make, model, type, color, odometer, price);
+
+       DealershipFileManager dealershipFileManager = new DealershipFileManager();
+       dealershipFileManager.getDealership().removeVehicle(removeCar);
+
+
 
     }
 

@@ -122,6 +122,7 @@ public class DealershipFileManager {
             //*Catching the answer
             BigDecimal price = new BigDecimal(input.next());
 
+
             //?Formatting the info to display on the csv
             String formattedLine = String.format("%d|%d|%s|%s|%s|%s|%d|%f", vin, year, make, model, type, color, odometer, price);
 
